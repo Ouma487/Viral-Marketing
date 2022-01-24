@@ -36,6 +36,21 @@ def adj_list(vertex, edges):
     return adj
 
 
+def get_keys_to_list(dic):
+    """Renvoie la liste des cles
+
+    Args:
+        dic (dic): un dictionnaire
+
+    Returns:
+        list: liste des clés du dictionnaire
+    """
+    liste = []
+    for key in dic:
+        liste.append(key)
+    return liste
+
+
 def afficher_graph(vertex, edges):
     """Affiche le graph
 
@@ -45,9 +60,9 @@ def afficher_graph(vertex, edges):
     """
     lst = adj_list(vertex, edges)
     print(len(lst))
-    g = ig.Graph(edges=lst)
+    g = ig.Graph(edges=lst, directed=True)
     print("en cours")
-    g.vs['label'] = vertex.keys()
+    g.vs['label'] = get_keys_to_list(vertex)
     ig.plot(g)
     plt.show()
 
