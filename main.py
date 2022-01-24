@@ -32,7 +32,7 @@ def adj_list(vertex, edges):
     adj = []
     for user_id in edges:
         for follow_id in edges[user_id]:
-            adj.append((vertex[user_id], vertex[follow_id]))
+            adj.append([vertex[user_id], vertex[follow_id]])
     return adj
 
 
@@ -59,7 +59,6 @@ def afficher_graph(vertex, edges):
         edges (dic): dictionnaire qui a un user_id lui associe la liste de ses follows_id
     """
     lst = adj_list(vertex, edges)
-    print(len(lst))
     g = ig.Graph(edges=lst, directed=True)
     print("en cours")
     g.vs['label'] = get_keys_to_list(vertex)
@@ -69,8 +68,9 @@ def afficher_graph(vertex, edges):
 
 def main():
     vertex, edges = graph()
-    vertex = {14215: 1, 14216: 2, 14235: 3, 14555: 4}
-    edges = {14215: [14216, 14555], 14216: [14235], 14235: [14215, 14555]}
+    vertex = {14215: 0, 14216: 1, 14235: 2, 14555: 3}
+    edges = {14215: [14216, 14555], 14216: [
+        14235, 14215], 14235: [14215, 14555]}
     afficher_graph(vertex, edges)
 
 
