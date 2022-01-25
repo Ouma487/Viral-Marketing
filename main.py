@@ -3,6 +3,7 @@ from pip import main
 import igraph as ig
 import matplotlib.pyplot as plt
 from extract_data import *
+from utility import *
 
 path = "data/"
 
@@ -28,29 +29,6 @@ def graph():
     return vertex, edges
 
 
-def adj_list(vertex, edges):
-    adj = []
-    for user_id in edges:
-        for follow_id in edges[user_id]:
-            adj.append([vertex[user_id], vertex[follow_id]])
-    return adj
-
-
-def get_keys_to_list(dic):
-    """Renvoie la liste des cles
-
-    Args:
-        dic (dic): un dictionnaire
-
-    Returns:
-        list: liste des clés du dictionnaire
-    """
-    liste = []
-    for key in dic:
-        liste.append(key)
-    return liste
-
-
 def afficher_graph(vertex, edges):
     """Affiche le graph
 
@@ -68,10 +46,12 @@ def afficher_graph(vertex, edges):
 
 def main():
     vertex, edges = graph()
-    vertex = {14215: 0, 14216: 1, 14235: 2, 14555: 3}
+    """vertex = {14215: 0, 14216: 1, 14235: 2, 14555: 3}
     edges = {14215: [14216, 14555], 14216: [
-        14235, 14215], 14235: [14215, 14555]}
-    afficher_graph(vertex, edges)
+        14235, 14215], 14235: [14215, 14555]}"""
+    new_vertex, new_edges = degree_min(vertex, edges, 150)
+    #afficher_graph(vertex, edges)
+    afficher_graph(new_vertex, new_edges)
 
 
 if __name__ == '__main__':
