@@ -49,10 +49,25 @@ def main():
     """vertex = {14215: 0, 14216: 1, 14235: 2, 14555: 3}
     edges = {14215: [14216, 14555], 14216: [
         14235, 14215], 14235: [14215, 14555]}"""
-    new_vertex, new_edges = degree_min(vertex, edges, 150)
-    #afficher_graph(vertex, edges)
-    afficher_graph(new_vertex, new_edges)
+    #new_vertex, new_edges = degree_min(vertex, edges, 150)
+    afficher_graph(vertex, edges)
+    #afficher_graph(new_vertex, new_edges)
+
+
+def traitement_data():
+    nb_follo = []
+    likes = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        id_post = df_posts.iloc[post]['id_post']
+        l, n = number_rapport_likes(id_post)
+        likes.append(l)
+        nb_follo.append(n)
+    plt.scatter(nb_follo, likes)
+    plt.show()
+    print(max(nb_follo))
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    traitement_data()
