@@ -137,6 +137,23 @@ def nb_vues_follow(id_post):
     return views, nb_followers
 
 
+def taux_repost(id_post):
+    post = df_posts[df_posts['id_post'] == id_post].index[0]
+    views = df_posts.iloc[post]['views']
+    repost = df_posts.iloc[post]['reposts']
+    if views == 0:
+        return 0
+    return repost/views
+
+
+def moyenne_taux_repost():
+    l = []
+    for id_post in df_posts['id_post'].values:
+        if taux_repost(id_post) < 1:
+            l.append(taux_repost(id_post))
+    return sum(l)/len(l)
+
+
 def classement_influenceurs_follow():
     """Renvoie les ids des influenceurs classés par ordre de ceux qui ont le plus de followers.
     influenceurs[1] a plus de followers que inflenceurs[2].
@@ -156,3 +173,15 @@ def classement_influenceurs_follow():
         valeur.insert(i, followers)
         influenceurs.insert(i, user_id)
     return influenceurs
+
+
+def nb_follow():
+    vertex, edges = graph()
+    nb_follow = [0]*len(vertex)
+    for i in vertex.keys():
+        for j in edges[i]:
+            nb_follow[vertex[j]-1] += 1
+    return nb_follow
+
+
+print(nb_follow())

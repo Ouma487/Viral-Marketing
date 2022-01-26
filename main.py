@@ -16,5 +16,11 @@ def main():
     afficher_graph(nv, ne, nom='nb', color=True)
 
 
+def test():
+    id_post = 650889385
+    print(moyenne_taux_repost())
+
+
 if __name__ == '__main__':
-    main()
+    # main()
+    test()
