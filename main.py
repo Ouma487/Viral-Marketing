@@ -19,5 +19,10 @@ def main():
     #afficher_graph(new_vertex, new_edges)
 
 
+def test():
+    (proba_dessin())
+
+
 if __name__ == '__main__':
-    main()
+    # main()
+    test()

@@ -135,3 +135,24 @@ def nb_vues_follow(id_post):
     user = df_accounts[df_accounts['id_user'] == id_user].index[0]
     nb_followers = df_accounts.iloc[user]['nb_followers']
     return views, nb_followers
+
+
+def classement_influenceurs_follo():
+    """Renvoie les ids des influenceurs classés par ordre de ceux qui ont le plus de followers.
+    influenceurs[1] a plus de followers que inflenceurs[2].
+
+    Returns:
+        list: liste des id des influenceurs.
+    """
+    valeur = []
+    influenceurs = []
+    for user_id in df_accounts['id_user'].values:
+        user = df_accounts[df_accounts['id_user'] == user_id].index[0]
+        followers = df_accounts.iloc[user]['nb_followers']
+        n = len(valeur)
+        i = 0
+        while i < n and followers < valeur[i]:
+            i += 1
+        valeur.insert(i, followers)
+        influenceurs.insert(i, user_id)
+    return influenceurs, valeur
