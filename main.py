@@ -3,6 +3,7 @@ from utility import *
 from extract_data import *
 from affichage import *
 from plot import *
+from strategie import *
 
 
 def main():
@@ -18,4 +19,4 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    print(moyenne_like())
+    pass

@@ -33,8 +33,8 @@ def best_influenceurs(vertex, edges, nb, cout_follower=0.01):
         list: liste des meilleurs influenceurs
         cost: ordre de grandeur du cout que celà peut couter
     """
-    influenceurs = classement_influenceurs()[:nb]
+    influenceurs = classement_influenceurs()[:5]
     cost = 0
     for influenceur in influenceurs:
         cost += get_nb_followers(influenceur)*cout_follower
-    return influenceur, cost
+    return influenceurs, cost
