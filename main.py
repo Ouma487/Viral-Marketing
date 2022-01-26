@@ -9,8 +9,8 @@ from propagation import *
 
 def main():
     vertex, edges = graph()
-    propagation(vertex, edges, random_post(vertex, edges, 0.5), 20)
-    #propagation(vertex, edges, best_influenceurs(vertex, edges, 3)[0], 50)
+    #propagation(vertex, edges, random_post(vertex, edges, 0.001), 100)
+    propagation(vertex, edges, best_influenceurs(vertex, edges, 20)[0], 100)
     """vertex = {14215: 0, 14216: 1, 14235: 2, 14555: 3}
     edges = {14215: [14216, 14555], 14216: [
         14235, 14215], 14235: [14215, 14555]}"""

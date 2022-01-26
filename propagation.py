@@ -1,10 +1,7 @@
-from numpy import true_divide
 from extract_data import *
 from utility import *
 import copy
-
-alpha = 0  # proba de liker
-beta = 0  # propa de repost
+import math
 
 
 def voisin(x, lst):
@@ -24,12 +21,17 @@ def voisin(x, lst):
     return voisin
 
 
-def repost_condition(i, j):
-    return rand(0.005)
+def repost_condition(t, t0):
+    p = 0.001
+    # p(x=k) = p.(1-p)^(k-1)
+    return rand(p*(1-p)**(t-t0))
 
 
-def like_condition(i, j):
-    return rand(0.01)
+def like_condition(t, t0):
+    p = 0.15
+    # p(x=k) = p.(1-p)^(k-1)
+    # p(x=k) = 1/lambda * exp(-lambda.x)
+    return rand(p*(1-p)**(t-t0))
 
 
 def propagation(vertex, edges, strategie, time):
@@ -53,26 +55,27 @@ def propagation(vertex, edges, strategie, time):
         count = 0
         for y in like:
             count += len(like[y])
-        print(count)
+        print('like: '+str(count))
 
         post_2 = copy.deepcopy(post)
+        print(len(post))
         for x in post_2:
             for y in edges[x]:
-                if y in post:
+                if y in post or (y in like and x in like[y]):
                     continue
                 # On n'a pas reposté l'information
-                if repost_condition(i, time_post[x]):
-                    if y in like:
-                        like[y].append(x)
-                    else:
+                if (y not in like or (y in like and len(like[y]) < 3)) and repost_condition(i, time_post[x]):
+                    if y not in like:
                         like[y] = [x]
+                    elif x not in like[y]:
+                        like[y].append(x)
                     post.add(y)
                     time_post[y] = i
 
                 # Si on ne reposte pas
                 elif like_condition(i, time_post[x]):
-                    if y in like:
-                        like[y].append(x)
-                    else:
+                    if y not in like:
                         like[y] = [x]
+                    elif x not in like[y]:
+                        like[y].append(x)
     return post, like
