@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from extract_data import number_rapport_likes, nb_likes_vue, nb_vues_follow, classement_influenceurs_follo
+from extract_data import number_rapport_likes, nb_likes_vue, nb_vues_follow, classement_influenceurs_follow
 from datetime import datetime, timedelta
 path = "data/"
 df_accounts = pd.read_csv(path+"instagram_accounts.csv")
@@ -87,7 +87,7 @@ def plot_like_time():
 
 
 def proba_dessin():
-    influenceurs, v = classement_influenceurs_follo()
+    influenceurs, v = classement_influenceurs_follow()
     dico = {}
     for j in range(0, 26):
         count = 0

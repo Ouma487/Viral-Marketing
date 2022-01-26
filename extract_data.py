@@ -137,7 +137,7 @@ def nb_vues_follow(id_post):
     return views, nb_followers
 
 
-def classement_influenceurs_follo():
+def classement_influenceurs_follow():
     """Renvoie les ids des influenceurs classés par ordre de ceux qui ont le plus de followers.
     influenceurs[1] a plus de followers que inflenceurs[2].
 
@@ -155,4 +155,4 @@ def classement_influenceurs_follo():
             i += 1
         valeur.insert(i, followers)
         influenceurs.insert(i, user_id)
-    return influenceurs, valeur
+    return influenceurs

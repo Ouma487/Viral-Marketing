@@ -10,13 +10,8 @@ from propagation import *
 def main():
     vertex, edges = graph()
     #propagation(vertex, edges, random_post(vertex, edges, 0.01), 20)
-    propagation(vertex, edges, best_influenceurs(vertex, edges, 20)[0], 20)
-
-
-def test():
-    (proba_dessin())
+    propagation(vertex, edges, best_influenceurs(vertex, edges, 10)[0], 20)
 
 
 if __name__ == '__main__':
-    # main()
-    test()
+    main()
