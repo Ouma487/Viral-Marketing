@@ -5,7 +5,7 @@ import igraph as ig
 import matplotlib.pyplot as plt
 from extract_data import *
 from utility import *
-from datetime import datetime
+from datetime import datetime, timedelta
 path = "data/"
 
 
@@ -70,15 +70,38 @@ def plot_like_follower():
     plt.show()
 
 
-def plot_like_time():
+def plot_like_date():
+    """Affiche les likes en fonctions date
+    """
     time = []
     likes = []
     for i in range(0, len(df_posts)):
         post = df_posts.index[i]
         post = df_posts.iloc[post]
-        date = post['date'] + '-' + post['time'] + '-' + post['half_day']
-        print(date)
-        time.append(datetime.strptime(date, '%d/%m/%Y-%I:%M-%p'))
+        date = post['date'] + '-' + post['time']
+        date = datetime.strptime(date, '%d/%m/%Y-%H:%M')
+        if post['half_day'] == 'pm':
+            date += timedelta(hours=12)
+        time.append(date)
+        likes.append(post['likes'])
+    # print(time)
+    plt.scatter(time, likes)
+    plt.show()
+
+
+def plot_like_time():
+    """Affiche les likes en fonctions du temps
+    """
+    time = []
+    likes = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        post = df_posts.iloc[post]
+        date = post['time']
+        date = datetime.strptime(date, '%H:%M')
+        if post['half_day'] == 'pm':
+            date += timedelta(hours=12)
+        time.append(date)
         likes.append(post['likes'])
     # print(time)
     plt.scatter(time, likes)
