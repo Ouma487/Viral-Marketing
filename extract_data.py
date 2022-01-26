@@ -135,3 +135,15 @@ def nb_vues_follow(id_post):
     user = df_accounts[df_accounts['id_user'] == id_user].index[0]
     nb_followers = df_accounts.iloc[user]['nb_followers']
     return views, nb_followers
+
+
+def nb_follow():
+    vertex, edges = graph()
+    nb_follow = [0]*len(vertex)
+    for i in vertex.keys():
+        for j in edges[i]:
+            nb_follow[vertex[j]-1] += 1
+    return nb_follow
+
+
+print(nb_follow())
