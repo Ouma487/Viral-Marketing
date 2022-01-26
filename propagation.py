@@ -1,8 +1,31 @@
+from numpy import true_divide
 from extract_data import *
 from utility import *
+import copy
 
 alpha = 0  # proba de liker
 beta = 0  # propa de repost
+
+
+def voisin(x, lst):
+    """renvoie la liste des voisins de x
+
+    Args:
+        x (int): numéro du noeud 
+        lst (lst): liste d'adjacence
+
+    Returns:
+        lst: liste des voisins de x
+    """
+    voisin = []
+    for elt in lst:
+        if elt[1] == x:
+            voisin.append(elt[0])
+    return voisin
+
+
+def condition(str, i, j):
+    return True
 
 
 def propagation(vertex, edges, strategie, time):
@@ -14,14 +37,33 @@ def propagation(vertex, edges, strategie, time):
         strategie (list): liste des user_id qui post en premier
         time (int) : nombre d'itération effectuée de propagation
     """
-    like = [0 for i in range(0, len(df_accounts))]
-    post = [0 for i in range(0, len(df_accounts))]
+    like = {}
+    post = set()
+    time_post = {}
     for elt in strategie:
-        k = vertex[elt]
-        post[k] += 1
+        post.add(elt)
+        time_post[elt] = 0
     lst = adj_list(vertex, edges)
-    g = ig.Graph(edges=lst, directed=True)
-    for i in range(0, time):
-        pass
-
-    raise NotImplemented
+    for i in range(1, time):
+        post_2 = copy.deepcopy(post)
+        for x in post_2:
+            for y in voisin(vertex[x], lst):
+                if y in post:
+                    continue
+                if condition("repost", i, time_post[x]):
+                    if y in like:
+                        like[y].append(x)
+                    else:
+                        like[y] = [x]
+                    post.add(y)
+                    time_post[y] = i
+                elif y in like:
+                    pass
+                elif condition("like", i, time_post[x]):
+                    if y in like:
+                        like[y].append(x)
+                    else:
+                        like[y] = [x]
+                else:
+                    pass
+    return post, like
