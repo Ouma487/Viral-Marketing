@@ -4,7 +4,7 @@ from extract_data import number_rapport_likes, nb_likes_vue, nb_vues_follow
 from datetime import datetime, timedelta
 path = "data/"
 df_accounts = pd.read_csv(path+"instagram_accounts.csv")
-df_posts = pd.read_csv(path+"instagram_posts_0911_1111.csv")
+df_posts = pd.read_csv(path+"instagram_post_9-11_16-11.csv")
 
 
 def like_views():

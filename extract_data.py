@@ -5,7 +5,7 @@ from utility import *
 path = "data/"
 
 df_accounts = pd.read_csv(path+"instagram_accounts.csv")
-df_posts = pd.read_csv(path+"instagram_posts_0911_1111.csv")
+df_posts = pd.read_csv(path+"instagram_post_9-11_16-11.csv")
 
 
 def graph():
