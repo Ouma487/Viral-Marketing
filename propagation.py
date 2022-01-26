@@ -24,8 +24,12 @@ def voisin(x, lst):
     return voisin
 
 
-def condition(str, i, j):
-    return True
+def repost_condition(i, j):
+    return rand(0.005)
+
+
+def like_condition(i, j):
+    return rand(0.01)
 
 
 def propagation(vertex, edges, strategie, time):
@@ -37,33 +41,38 @@ def propagation(vertex, edges, strategie, time):
         strategie (list): liste des user_id qui post en premier
         time (int) : nombre d'itération effectuée de propagation
     """
-    like = {}
-    post = set()
-    time_post = {}
+    like = {}  # clé user_id: value:[user_id]
+    post = set()  # user_id des gens qui ont posté
+    time_post = {}  # clé user_id value: iteration t de l'ajout de user à pot
     for elt in strategie:
         post.add(elt)
         time_post[elt] = 0
-    lst = adj_list(vertex, edges)
     for i in range(1, time):
+
+        # compte le nombre de like total:
+        count = 0
+        for y in like:
+            count += len(like[y])
+        print(count)
+
         post_2 = copy.deepcopy(post)
         for x in post_2:
-            for y in voisin(vertex[x], lst):
+            for y in edges[x]:
                 if y in post:
                     continue
-                if condition("repost", i, time_post[x]):
+                # On n'a pas reposté l'information
+                if repost_condition(i, time_post[x]):
                     if y in like:
                         like[y].append(x)
                     else:
                         like[y] = [x]
                     post.add(y)
                     time_post[y] = i
-                elif y in like:
-                    pass
-                elif condition("like", i, time_post[x]):
+
+                # Si on ne reposte pas
+                elif like_condition(i, time_post[x]):
                     if y in like:
                         like[y].append(x)
                     else:
                         like[y] = [x]
-                else:
-                    pass
     return post, like

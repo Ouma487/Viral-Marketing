@@ -2,7 +2,7 @@ from utility import get_keys_to_list, rand
 from extract_data import classement_influenceurs, get_nb_followers
 
 
-def random_post(vertex, p):
+def random_post(vertex, edges, p):
     """Renvoie une liste des personnes qui vont poster la campagne
     Ici le choix est entièrement aléatoire
 
