@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from extract_data import number_rapport_likes, nb_likes_vue, nb_vues_follow, classement_influenceurs_follow
 from datetime import datetime, timedelta
+
 path = "data/"
 df_accounts = pd.read_csv(path+"instagram_accounts.csv")
 df_posts = pd.read_csv(path+"instagram_post_9-11_16-11.csv")
@@ -20,7 +21,7 @@ def like_views():
     plt.show()
 
 
-def like_follow():
+def follow_fonction_vues():
     vues = []
     follow = []
     for i in range(0, len(df_posts)):
@@ -29,7 +30,7 @@ def like_follow():
         v, f = nb_vues_follow(id_post)
         follow.append(f)
         vues.append(v)
-    plt.scatter(vues, follow)
+    plt.scatter(follow, vues)
     plt.show()
 
 

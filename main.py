@@ -9,8 +9,11 @@ from propagation import *
 
 def main():
     vertex, edges = graph()
-    #propagation(vertex, edges, random_post(vertex, edges, 0.01), 20)
-    propagation(vertex, edges, best_influenceurs(vertex, edges, 10)[0], 20)
+    #propagation(vertex, edges, random_post(vertex, edges, 0.01), 50)
+    #propagation(vertex, edges, best_influenceurs(vertex, edges, 30)[0], 50)
+
+    nv, ne = limiter_graph(vertex, edges, 100)
+    afficher_graph(nv, ne, nom='nb', color=True)
 
 
 if __name__ == '__main__':
