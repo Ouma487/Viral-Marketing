@@ -1,5 +1,16 @@
 # ensemble de fonctions avec des propriétés qui peuvent être utiles
 import igraph as ig
+import random as rd
+
+
+def rand(p):
+    """Renvoie True avec une probabilité p
+    False sinon
+    """
+    if rd.random() < p:
+        return True
+    else:
+        return False
 
 
 def adj_list(vertex, edges):

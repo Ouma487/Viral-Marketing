@@ -99,6 +99,18 @@ def moyenne_like():
     return id_user, likes"""
 
 
+def get_nb_followers(id_user):
+    """Renvoie le nombre de follower d'un user
+
+    Args:
+        id_user (int): user id
+    Return:
+        int: nb de follower
+    """
+    user_index = df_accounts[df_accounts['id_user'] == id_user].index[0]
+    return df_accounts.iloc[user_index]['nb_followers']
+
+
 def number_rapport_likes(id_post):
     post = df_posts[df_posts['id_post'] == id_post].index[0]
     id_user = df_posts.iloc[post]['id_user']
