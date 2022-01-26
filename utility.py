@@ -3,6 +3,16 @@ import igraph as ig
 
 
 def adj_list(vertex, edges):
+    """Renvoie la liste d'adjacence.
+    C'est la même chose que edges mais avec les numéros du graphs (et non les id)
+
+    Args:
+        vertex (dic): vertex
+        edges (list): liste des edges
+
+    Returns:
+        list: liste d'adjacence
+    """
     adj = []
     for user_id in edges:
         for follow_id in edges[user_id]:
@@ -54,3 +64,35 @@ def degree_min(vertex, edges, epsilon):
                 l.append(follower)
         new_edges[elt] = l
     return new_vertex, new_edges
+
+
+def transform_to_list(l):
+    """Passe d'une chaine de caractere en une liste donc de:
+    '[1, 2, 3]' -> [1, 2, 3]
+
+    Args:
+        l (string): chaine de caractere d'une liste
+
+    Returns:
+        list: liste
+    """
+    j = l[0][1:len(l[0])-1]
+    o = []
+    k = ""
+    for i in range(0, len(j)):
+        if j[i] == ",":
+            o.append(k)
+            k = ""
+        elif i == len(j) - 1:
+            k += j[i]
+            o.append(k)
+        elif j[i] == " ":
+            continue
+        else:
+            k += j[i]
+
+    res = []
+    for elt in o:
+        res.append(int(elt))
+
+    return res

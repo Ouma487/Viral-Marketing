@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from utility import *
 
 path = "data/"
 
@@ -7,36 +8,25 @@ df_accounts = pd.read_csv(path+"instagram_accounts.csv")
 df_posts = pd.read_csv(path+"instagram_posts_0911_1111.csv")
 
 
-def transform_to_list(l):
-    """Passe d'une chaine de caractere en une liste donc de:
-    '[1, 2, 3]' -> [1, 2, 3]
-
-    Args:
-        l (string): chaine de caractere d'une liste
+def graph():
+    """Génère vertex et edges
 
     Returns:
-        list: liste
+        vertex [dictionnaire]: clés: users_id | valeurs: int: le numéro du noeud (pour des eventuels affichages)
+        edges [dictionnaire]: clés: users_id | valeurs: list: les follows_id 
     """
-    j = l[0][1:len(l[0])-1]
-    o = []
-    k = ""
-    for i in range(0, len(j)):
-        if j[i] == ",":
-            o.append(k)
-            k = ""
-        elif i == len(j) - 1:
-            k += j[i]
-            o.append(k)
-        elif j[i] == " ":
-            continue
-        else:
-            k += j[i]
-
-    res = []
-    for elt in o:
-        res.append(int(elt))
-
-    return res
+    df = pd.read_csv(path+"instagram_accounts.csv")
+    vertex = {}
+    edges = {}
+    users_id = df[['id_user']].to_numpy()
+    followers_id = df[['id_followers']].to_numpy()
+    n = len(users_id)
+    for i in range(n):
+        user_id = users_id[i, 0]
+        vertex[user_id] = i
+        followers_id_i = transform_to_list(followers_id[i])
+        edges[user_id] = followers_id_i
+    return vertex, edges
 
 
 def data_frame_post_origin():
@@ -50,16 +40,15 @@ def data_frame_post_origin():
 
 
 def max_repost():
+    """Renvoie l'id du post qui a été le plus repost et son nombre de repost
+    INCERTAINE
+    Returns:
+        tuple: [description]
+    """
     post_max = np.max(df_posts['reposts'])
     post = df_posts[df_posts.reposts == post_max].index[0]
     ligne = pd.DataFrame(df_posts.loc[post])
     return ligne.loc['reposts'], ligne.loc['id_post']
-
-
-def number_of_likes(id_post):
-    post = df_posts[df_posts['id_post'] == id_post].index[0]
-    ligne = pd.DataFrame(df_posts.loc[post])
-    return ligne.loc['likes'].astype(str).astype(int)
 
 
 def number_of_like_generated(id_user):
