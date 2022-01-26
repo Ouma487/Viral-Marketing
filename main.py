@@ -18,11 +18,10 @@ def main():
 
 
 def test():
-    id_post = 650889385
-    print(moyenne_taux_repost())
+    plot_histo_like_follower()
 
 
 if __name__ == '__main__':
     # main()
-    # test()
+    test()
     pass
