@@ -1,14 +1,14 @@
 from extract_data import *
 from utility import *
 import copy
-import math
+import matplotlib.pyplot as plt
 
 
 def voisin(x, lst):
     """renvoie la liste des voisins de x
 
     Args:
-        x (int): numéro du noeud 
+        x (int): numéro du noeud
         lst (lst): liste d'adjacence
 
     Returns:
@@ -22,16 +22,16 @@ def voisin(x, lst):
 
 
 def repost_condition(t, t0):
-    p = 0.001
+    p = 0.005
     # p(x=k) = p.(1-p)^(k-1)
-    return rand(p*(1-p)**(t-t0))
+    return rand(p**(t-t0))
 
 
 def like_condition(t, t0):
-    p = 0.15
+    p = 0.02
     # p(x=k) = p.(1-p)^(k-1)
     # p(x=k) = 1/lambda * exp(-lambda.x)
-    return rand(p*(1-p)**(t-t0))
+    return rand(p**(t-t0))
 
 
 def propagation(vertex, edges, strategie, time):
@@ -43,22 +43,24 @@ def propagation(vertex, edges, strategie, time):
         strategie (list): liste des user_id qui post en premier
         time (int) : nombre d'itération effectuée de propagation
     """
+    nb_like = []
+    nb_personne_like = []
+    nb_personne_repost = []
+    tps = [0]
+
     like = {}  # clé user_id: value:[user_id]
     post = set()  # user_id des gens qui ont posté
     time_post = {}  # clé user_id value: iteration t de l'ajout de user à pot
     for elt in strategie:
         post.add(elt)
         time_post[elt] = 0
+
+    nb_like.append(len(strategie))
+    nb_personne_like.append(len(strategie))
+    nb_personne_repost.append(len(strategie))
+
     for i in range(1, time):
-
-        # compte le nombre de like total:
-        count = 0
-        for y in like:
-            count += len(like[y])
-        print('like: '+str(count))
-
         post_2 = copy.deepcopy(post)
-        print(len(post))
         for x in post_2:
             for y in edges[x]:
                 if y in post or (y in like and x in like[y]):
@@ -78,4 +80,22 @@ def propagation(vertex, edges, strategie, time):
                         like[y] = [x]
                     elif x not in like[y]:
                         like[y].append(x)
-    return post, like
+
+        # compte le nombre de like total:
+        count = 0
+        for y in like:
+            count += len(like[y])
+
+        tps.append(i)
+        nb_personne_like.append(len(like.keys()))
+        nb_like.append(count)
+        nb_personne_repost.append(len(post))
+
+    fig, axs = plt.subplots(2, 2)
+    axs[0, 0].plot(tps, nb_like)
+    axs[0, 0].set_title('Nombre de like en fonction du temps')
+    axs[0, 1].plot(tps, nb_personne_like, 'tab:orange')
+    axs[0, 1].set_title('Nombre de personne qui like')
+    axs[1, 0].plot(tps, nb_personne_repost, 'tab:green')
+    axs[1, 0].set_title('Nombre de personne qui repost')
+    plt.show()
