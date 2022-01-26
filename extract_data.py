@@ -173,3 +173,15 @@ def classement_influenceurs_follow():
         valeur.insert(i, followers)
         influenceurs.insert(i, user_id)
     return influenceurs
+
+
+def nb_follow():
+    vertex, edges = graph()
+    nb_follow = [0]*len(vertex)
+    for i in vertex.keys():
+        for j in edges[i]:
+            nb_follow[vertex[j]-1] += 1
+    return nb_follow
+
+
+print(nb_follow())
