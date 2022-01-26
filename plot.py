@@ -1,10 +1,36 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from extract_data import number_rapport_likes
+from extract_data import number_rapport_likes, nb_likes_vue, nb_vues_follow
 from datetime import datetime, timedelta
 path = "data/"
 df_accounts = pd.read_csv(path+"instagram_accounts.csv")
 df_posts = pd.read_csv(path+"instagram_posts_0911_1111.csv")
+
+
+def like_views():
+    vues = []
+    likes = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        id_post = df_posts.iloc[post]['id_post']
+        v, l = nb_likes_vue(id_post)
+        likes.append(l)
+        vues.append(v)
+    plt.scatter(vues, likes)
+    plt.show()
+
+
+def like_follow():
+    vues = []
+    follow = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        id_post = df_posts.iloc[post]['id_post']
+        v, f = nb_vues_follow(id_post)
+        follow.append(f)
+        vues.append(v)
+    plt.scatter(vues, follow)
+    plt.show()
 
 
 def plot_like_follower():
