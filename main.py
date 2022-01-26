@@ -13,5 +13,10 @@ def main():
     propagation(vertex, edges, best_influenceurs(vertex, edges, 20)[0], 20)
 
 
+def test():
+    (proba_dessin())
+
+
 if __name__ == '__main__':
-    main()
+    # main()
+    test()
