@@ -13,5 +13,11 @@ def main():
     propagation(vertex, edges, best_influenceurs(vertex, edges, 10)[0], 20)
 
 
+def test():
+    id_post = 650889385
+    print(moyenne_taux_repost())
+
+
 if __name__ == '__main__':
-    main()
+    # main()
+    test()
