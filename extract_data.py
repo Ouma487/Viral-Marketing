@@ -117,3 +117,19 @@ def number_rapport_likes(id_post):
     user = df_accounts[df_accounts['id_user'] == id_user].index[0]
     nb_followers = df_accounts.iloc[user]['nb_followers']
     return likes, nb_followers
+
+
+def nb_likes_vue(id_post):
+    post = df_posts[df_posts['id_post'] == id_post].index[0]
+    views = df_posts.iloc[post]['views']
+    likes = df_posts.iloc[post]['likes']
+    return views, likes
+
+
+def nb_vues_follow(id_post):
+    post = df_posts[df_posts['id_post'] == id_post].index[0]
+    id_user = df_posts.iloc[post]['id_user']
+    views = df_posts.iloc[post]['views']
+    user = df_accounts[df_accounts['id_user'] == id_user].index[0]
+    nb_followers = df_accounts.iloc[user]['nb_followers']
+    return views, nb_followers

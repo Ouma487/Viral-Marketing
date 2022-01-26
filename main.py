@@ -85,6 +85,32 @@ def plot_like_time():
     plt.show()
 
 
+def like_views():
+    vues = []
+    likes = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        id_post = df_posts.iloc[post]['id_post']
+        v, l = nb_likes_vue(id_post)
+        likes.append(l)
+        vues.append(v)
+    plt.scatter(vues, likes)
+    plt.show()
+
+
+def like_follow():
+    vues = []
+    follow = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        id_post = df_posts.iloc[post]['id_post']
+        v, f = nb_vues_follow(id_post)
+        follow.append(f)
+        vues.append(v)
+    plt.scatter(vues, follow)
+    plt.show()
+
+
 if __name__ == '__main__':
     # main()
-    plot_like_time()
+    print(moyenne_like())
