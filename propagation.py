@@ -103,16 +103,3 @@ def propagation(vertex, edges, strategie, time):
         nb_personne_repost.append(len(post))
 
     return tps, nb_like, nb_personne_like, nb_personne_repost
-    fig, axs = plt.subplots(2, 2)
-    axs[0, 0].plot(tps, nb_like, 'tab:green')
-    axs[0, 0].plot(tps, var(nb_like), 'tab:orange')
-    axs[0, 0].set_title('Nombre de like en fonction du temps')
-
-    axs[0, 1].plot(tps, nb_personne_like, 'tab:green')
-    axs[0, 1].plot(tps, var(nb_personne_like), 'tab:orange')
-    axs[0, 1].set_title('Nombre de personne qui like')
-
-    axs[1, 0].plot(tps, nb_personne_repost, 'tab:green')
-    axs[1, 0].plot(tps, var(nb_personne_repost), 'tab:orange')
-    axs[1, 0].set_title('Nombre de personne qui repost')
-    plt.show()

@@ -14,6 +14,7 @@ def main():
 
     nv, ne = limiter_graph(vertex, edges, 100)
     afficher_graph(nv, ne, nom='nb', color=True)
+    plt.show()
 
 
 def test():
@@ -23,4 +24,5 @@ def test():
 
 if __name__ == '__main__':
     # main()
-    test()
+    # test()
+    pass

@@ -1,4 +1,4 @@
-from utility import get_keys_to_list, adj_list
+from utility import get_keys_to_list, adj_list, var
 import igraph as ig
 import matplotlib.pyplot as plt
 from extract_data import classement_influenceurs_follow
@@ -20,6 +20,22 @@ def limiter_graph(vertex, edges, N):
     return nw_vertex, nw_edges
 
 
+def afficher_propagation(tps, nb_like, nb_personne_like, nb_personne_repost):
+    fig, axs = plt.subplots(2, 2)
+    axs[0, 0].plot(tps, nb_like, 'tab:green')
+    axs[0, 0].plot(tps, var(nb_like), 'tab:orange')
+    axs[0, 0].set_title('Nombre de like en fonction du temps')
+
+    axs[0, 1].plot(tps, nb_personne_like, 'tab:green')
+    axs[0, 1].plot(tps, var(nb_personne_like), 'tab:orange')
+    axs[0, 1].set_title('Nombre de personne qui like')
+
+    axs[1, 0].plot(tps, nb_personne_repost, 'tab:green')
+    axs[1, 0].plot(tps, var(nb_personne_repost), 'tab:orange')
+    axs[1, 0].set_title('Nombre de personne qui repost')
+    return fig, axs
+
+
 def afficher_graph(vertex, edges, nom='user', color=False):
     """Affiche le graph
 
@@ -30,7 +46,6 @@ def afficher_graph(vertex, edges, nom='user', color=False):
     """
     lst = adj_list(vertex, edges)
     g = ig.Graph(edges=lst, directed=True)
-    print("en cours")
 
     n = len(vertex.keys())
 
@@ -42,5 +57,5 @@ def afficher_graph(vertex, edges, nom='user', color=False):
         g.vs['label'] = get_keys_to_list(vertex)
     else:
         g.vs['label'] = [i for i in range(n)]
-    ig.plot(g)
-    plt.show()
+
+    return ig.plot(g)

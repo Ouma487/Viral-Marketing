@@ -8,7 +8,9 @@ df_accounts = pd.read_csv(path+"instagram_accounts.csv")
 df_posts = pd.read_csv(path+"instagram_post_9-11_16-11.csv")
 
 
-def like_views():
+def plot_like_views():
+    """affiche le graph du nombre de like en fonction du nombre de views
+    """
     vues = []
     likes = []
     for i in range(0, len(df_posts)):
@@ -88,7 +90,7 @@ def plot_like_time():
 
 
 def proba_dessin():
-    influenceurs, v = classement_influenceurs_follow()
+    influenceurs, v = classement_influenceurs_follow(return_value=True)
     dico = {}
     for j in range(0, 26):
         count = 0
