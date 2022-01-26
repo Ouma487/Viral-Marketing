@@ -1,10 +1,11 @@
+import datetime
 from matplotlib.style import use
 from pip import main
 import igraph as ig
 import matplotlib.pyplot as plt
 from extract_data import *
 from utility import *
-
+from datetime import datetime
 path = "data/"
 
 
@@ -54,7 +55,9 @@ def main():
     #afficher_graph(new_vertex, new_edges)
 
 
-def traitement_data():
+def plot_like_follower():
+    """plot le graph du nombre de like en fonction du nombre de follower
+    """
     nb_follo = []
     likes = []
     for i in range(0, len(df_posts)):
@@ -65,9 +68,23 @@ def traitement_data():
         nb_follo.append(n)
     plt.scatter(nb_follo, likes)
     plt.show()
-    print(max(nb_follo))
+
+
+def plot_like_time():
+    time = []
+    likes = []
+    for i in range(0, len(df_posts)):
+        post = df_posts.index[i]
+        post = df_posts.iloc[post]
+        date = post['date'] + '-' + post['time'] + '-' + post['half_day']
+        print(date)
+        time.append(datetime.strptime(date, '%d/%m/%Y-%I:%M-%p'))
+        likes.append(post['likes'])
+    # print(time)
+    plt.scatter(time, likes)
+    plt.show()
 
 
 if __name__ == '__main__':
     # main()
-    traitement_data()
+    plot_like_time()

@@ -26,7 +26,8 @@ def get_keys_to_list(dic):
 
 
 def degree_min(vertex, edges, epsilon):
-    """prend en entrée une graph sous la forme d'un couple edge vertex et epsilon une valeur arbitraire minimale on enlève les noeuds du 
+    """prend en entrée une graph sous la forme d'un couple edge vertex
+    et epsilon une valeur arbitraire minimale on enlève les noeuds du 
     graph qui ont un degree qui est inférieur à epsilon
 
     Args:

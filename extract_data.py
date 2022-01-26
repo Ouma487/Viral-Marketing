@@ -72,6 +72,26 @@ def number_of_like_generated(id_user):
     return df_user['likes'].sum()
 
 
+def classement_influenceurs():
+    """Renvoie les ids des influenceurs classés par ordre de ceux qui ont généré le plus de like.
+    influenceurs[1] a généré plus de like que inflenceurs[2].
+
+    Returns:
+        list: liste des id des influenceurs.
+    """
+    valeur = []
+    influenceurs = []
+    for user_id in df_accounts['id_user'].values:
+        like = number_of_like_generated(user_id)
+        n = len(valeur)
+        i = 0
+        while i < n and like < valeur[i]:
+            i += 1
+        valeur.insert(i, like)
+        influenceurs.insert(i, user_id)
+    return influenceurs
+
+
 def moyenne_like():
     """renvoie la moyenne des likes
 
