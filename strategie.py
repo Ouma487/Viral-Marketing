@@ -1,6 +1,7 @@
 from utility import get_keys_to_list, rand
 from extract_data import get_nb_followers, classement_influenceurs_follow
 from propagation import *
+from affichage import most_connected_nodes
 
 
 def random_post(vertex, edges,  p=0.01, nb=5, cout_follower=0.01):
@@ -34,10 +35,10 @@ def best_influenceurs(vertex, edges, p=0.01, nb=5, cout_follower=0.01):
         list: liste des meilleurs influenceurs
         cost: ordre de grandeur du cout que celà peut couter
     """
-    influenceurs = classement_influenceurs_follow()[:5]
+    influenceurs = most_connected_nodes(vertex, edges)[:5]
     cost = 0
-    for influenceur in influenceurs:
-        cost += get_nb_followers(influenceur)*cout_follower
+    # for influenceur in influenceurs:
+    #    cost += get_nb_followers(influenceur)*cout_follower
     return influenceurs
 
 

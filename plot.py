@@ -100,7 +100,6 @@ def proba_dessin(vertex, edges, pas=10):
         groupage.append(0)
     for i in range(0, (v[0]//pas)):
         for j in range(i*pas, (i+1)*(pas)):
-            print(i, j)
             groupage[i] += compteur[j]
     plt.plot(range(0, v[0], pas), groupage)
 
