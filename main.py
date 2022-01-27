@@ -20,16 +20,6 @@ def main():
     plt.show()
 
 
-<<<<<<< HEAD
-def test():
-    print(diff_time_repost(991154137))
-
-
-if __name__ == '__main__':
-    # main()
-    test()
-=======
 if __name__ == '__main__':
     main()
     pass
->>>>>>> 89916ba1533da7ce9dbe8fc99546427f7298554d
