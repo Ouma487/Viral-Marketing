@@ -180,8 +180,7 @@ def moyenne_taux_repost():
     return sum(l)/len(l)
 
 
-def nb_follow():
-    vertex, edges = graph()
+def nb_follow(vertex, edges):
     nb_follow = [0]*len(vertex)
     for i in vertex.keys():
         for j in edges[i]:

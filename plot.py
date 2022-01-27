@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from extract_data import *
 from datetime import datetime, timedelta
-
+from affichage import most_connected_nodes
 path = "data/"
 df_accounts = pd.read_csv(path+"instagram_accounts.csv")
 df_posts = pd.read_csv(path+"instagram_post_9-11_16-11.csv")
@@ -90,19 +90,19 @@ def plot_like_time():
     plt.show()
 
 
-def proba_dessin():
-    influenceurs, v = classement_influenceurs_follow(return_value=True)
-    pas = 10
+def proba_dessin(vertex, edges, pas=10):
+    influenceurs, v = most_connected_nodes(vertex, edges, return_value=True)
     compteur = [0]*v[0]
     for i in v:
         compteur[i-1] += 1
-    groupage = [0]*((v[0]//pas)+1)
+    groupage = [0]*((v[0]//pas))
+    if v[0] % pas != 0:
+        groupage.append(0)
     for i in range(0, (v[0]//pas)):
         for j in range(i*pas, (i+1)*(pas)):
             print(i, j)
             groupage[i] += compteur[j]
     plt.plot(range(0, v[0], pas), groupage)
-    plt.show()
 
 
 def plot_histo_follo():
