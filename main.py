@@ -18,10 +18,9 @@ def main():
 
 
 def test():
-    plot_histo_like_follower()
+    print(diff_time_repost(991154137))
 
 
 if __name__ == '__main__':
     # main()
     test()
-    pass

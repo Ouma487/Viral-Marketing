@@ -13,7 +13,7 @@ def graph():
 
     Returns:
         vertex [dictionnaire]: clés: users_id | valeurs: int: le numéro du noeud (pour des eventuels affichages)
-        edges [dictionnaire]: clés: users_id | valeurs: list: les follows_id 
+        edges [dictionnaire]: clés: users_id | valeurs: list: les follows_id
     """
     df = pd.read_csv(path+"instagram_accounts.csv")
     vertex = {}
@@ -187,3 +187,51 @@ def nb_follow():
         for j in edges[i]:
             nb_follow[vertex[j]-1] += 1
     return nb_follow
+
+
+def was_repost(id_post):
+    post = df_posts[df_posts['id_post_origin'] == id_post]
+    return len(post) > 0
+
+
+def list_time_repost(id_post):
+    if not was_repost(id_post):
+        return []
+    else:
+        l = []
+        post_1 = df_posts[df_posts['id_post_origin'] == id_post]
+        for i in range(0, len(post_1)):
+            post = post_1.iloc[i, :]
+            l.append((post['date'], post['time'], post['half_day']))
+        return(l)
+
+
+def difference_date(d1, d2):
+    a1, b1, c1 = d1
+    a2, b2, c2 = d2
+    return a2  # exprimer la différence de temps en heure
+
+
+def diff_time_repost(id_post):
+    l = list_time_repost(id_post)
+    res = []
+    post = df_posts[df_posts['id_post'] == id_post]
+    date_ini = ((post['date'], post['time'], post['half_day']))
+    for elt in l:
+        delta = difference_date(elt, date_ini)
+        res.append(delta)
+    return res  # liste des ecrats en heure
+
+
+def diff_repost():
+    # dico ou clé int ou les valeurs = nb de delta dans 10 * cle et 10*cle + 10 (en heure)
+    dico = {}
+    for id_post in df_posts['id_post'].values:
+        res = diff_time_repost(id_post)
+        for elt in res:
+            j = elt//10
+            if j in dico:
+                dico[j] += 1
+            else:
+                dico[j] = 1
+    return dico
