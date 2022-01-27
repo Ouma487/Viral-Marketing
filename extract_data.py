@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from utility import *
-from datetime import datetime, timedelta
 
 path = "data/"
 
@@ -62,7 +61,7 @@ def number_of_like_generated(id_user):
     return df_user['likes'].sum()
 
 
-def classement_influenceurs():
+def classement_influenceurs_like(return_value=False):
     """Renvoie les ids des influenceurs classés par ordre de ceux qui ont généré le plus de like.
     influenceurs[1] a généré plus de like que inflenceurs[2].
 
@@ -79,7 +78,34 @@ def classement_influenceurs():
             i += 1
         valeur.insert(i, like)
         influenceurs.insert(i, user_id)
-    return influenceurs
+    if not return_value:
+        return influenceurs
+    else:
+        return influenceurs, valeur
+
+
+def classement_influenceurs_follow(return_value=False):
+    """Renvoie les ids des influenceurs classés par ordre de ceux qui ont le plus de followers.
+    influenceurs[1] a plus de followers que inflenceurs[2].
+
+    Returns:
+        list: liste des id des influenceurs.
+    """
+    valeur = []
+    influenceurs = []
+    for user_id in df_accounts['id_user'].values:
+        user = df_accounts[df_accounts['id_user'] == user_id].index[0]
+        followers = df_accounts.iloc[user]['nb_followers']
+        n = len(valeur)
+        i = 0
+        while i < n and followers < valeur[i]:
+            i += 1
+        valeur.insert(i, followers)
+        influenceurs.insert(i, user_id)
+    if not return_value:
+        return influenceurs
+    else:
+        return influenceurs, valeur
 
 
 def moyenne_like():
@@ -154,27 +180,6 @@ def moyenne_taux_repost():
     return sum(l)/len(l)
 
 
-def classement_influenceurs_follow():
-    """Renvoie les ids des influenceurs classés par ordre de ceux qui ont le plus de followers.
-    influenceurs[1] a plus de followers que inflenceurs[2].
-
-    Returns:
-        list: liste des id des influenceurs.
-    """
-    valeur = []
-    influenceurs = []
-    for user_id in df_accounts['id_user'].values:
-        user = df_accounts[df_accounts['id_user'] == user_id].index[0]
-        followers = df_accounts.iloc[user]['nb_followers']
-        n = len(valeur)
-        i = 0
-        while i < n and followers < valeur[i]:
-            i += 1
-        valeur.insert(i, followers)
-        influenceurs.insert(i, user_id)
-    return influenceurs
-
-
 def nb_follow():
     vertex, edges = graph()
     nb_follow = [0]*len(vertex)
@@ -182,6 +187,3 @@ def nb_follow():
         for j in edges[i]:
             nb_follow[vertex[j]-1] += 1
     return nb_follow
-
-
-print(nb_follow())

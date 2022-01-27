@@ -3,6 +3,13 @@ import igraph as ig
 import random as rd
 
 
+def var(liste):
+    nl = [0]
+    for i in range(1, len(liste)):
+        nl.append(liste[i]-liste[i-1])
+    return nl
+
+
 def rand(p):
     """Renvoie True avec une probabilité p
     False sinon
@@ -48,7 +55,7 @@ def get_keys_to_list(dic):
 
 def degree_min(vertex, edges, epsilon):
     """prend en entrée une graph sous la forme d'un couple edge vertex
-    et epsilon une valeur arbitraire minimale on enlève les noeuds du 
+    et epsilon une valeur arbitraire minimale on enlève les noeuds du
     graph qui ont un degree qui est inférieur à epsilon
 
     Args:

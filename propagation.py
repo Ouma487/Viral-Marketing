@@ -23,15 +23,26 @@ def voisin(x, lst):
 
 def repost_condition(t, t0):
     p = 0.005
-    # p(x=k) = p.(1-p)^(k-1)
-    return rand(p**(t-t0))
+    if t == t0:
+        return rand(p)
+    elif t == t0+1:
+        return rand(0.75*p)
+    elif t == t0+2:
+        return rand(0.5*p)
+    else:
+        return rand(p**(t-t0))
 
 
 def like_condition(t, t0):
     p = 0.02
-    # p(x=k) = p.(1-p)^(k-1)
-    # p(x=k) = 1/lambda * exp(-lambda.x)
-    return rand(p**(t-t0))
+    if t == t0:
+        return rand(p)
+    elif t == t0+1:
+        return rand(0.75*p)
+    elif t == t0+2:
+        return rand(0.5*p)
+    else:
+        return rand(p**(t-t0))
 
 
 def propagation(vertex, edges, strategie, time):
@@ -91,11 +102,4 @@ def propagation(vertex, edges, strategie, time):
         nb_like.append(count)
         nb_personne_repost.append(len(post))
 
-    fig, axs = plt.subplots(2, 2)
-    axs[0, 0].plot(tps, nb_like)
-    axs[0, 0].set_title('Nombre de like en fonction du temps')
-    axs[0, 1].plot(tps, nb_personne_like, 'tab:orange')
-    axs[0, 1].set_title('Nombre de personne qui like')
-    axs[1, 0].plot(tps, nb_personne_repost, 'tab:green')
-    axs[1, 0].set_title('Nombre de personne qui repost')
-    plt.show()
+    return tps, nb_like, nb_personne_like, nb_personne_repost
