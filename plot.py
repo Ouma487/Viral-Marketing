@@ -86,7 +86,9 @@ def plot_like_time():
     plt.show()
 
 
-def proba_dessin():
+def proba_dessin_followers():
+    """plot la distribution du nombres de followers du graphe, en ordonnée le nombreb de noeuds ayant ce nombre de followers 
+    (groupé par tranche de 10) en abscisse le nombre de followers"""
     influenceurs, v = classement_influenceurs_follow()
     dico = {}
     for j in range(0, 26):
