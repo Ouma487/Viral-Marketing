@@ -4,8 +4,31 @@ import matplotlib.pyplot as plt
 from extract_data import classement_influenceurs_follow
 
 
+def most_connected_nodes(vertex, edges, return_value=False):
+    """Return nom/id des noeuds les plus connectés
+
+    Args:
+        vertex ([type]): [description]
+        edges ([type]): [description]
+    """
+    influenceurs = []
+    valeur = []
+    for id_node in edges.keys():
+        followers = len(edges[id_node])
+        n = len(valeur)
+        i = 0
+        while i < n and followers < valeur[i]:
+            i += 1
+        valeur.insert(i, followers)
+        influenceurs.insert(i, id_node)
+    if not return_value:
+        return influenceurs
+    else:
+        return influenceurs, valeur
+
+
 def limiter_graph(vertex, edges, N):
-    id_infuenceurs = classement_influenceurs_follow()[:N]
+    id_infuenceurs = most_connected_nodes(vertex, edges)[:N]
     nw_vertex = {}
     nw_edges = {}
     for i in range(N):
