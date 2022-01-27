@@ -5,14 +5,15 @@ from affichage import *
 from plot import *
 from strategie import *
 from propagation import *
+from generation import *
 
 
 def main():
-    vertex, edges = graph()
+    vertex, edges = graphe_aléatoire_powerlaw(40, m=80)
     #propagation(vertex, edges, random_post(vertex, edges, 0.01), 50)
     #propagation(vertex, edges, best_influenceurs(vertex, edges, 30)[0], 50)
-
-    nv, ne = limiter_graph(vertex, edges, 100)
+    #afficher_graph(vertex, edges)
+    nv, ne = limiter_graph(vertex, edges, 20)
     afficher_graph(nv, ne, nom='nb', color=True)
     plt.show()
 
@@ -22,6 +23,6 @@ def test():
 
 
 if __name__ == '__main__':
-    # main()
-    test()
+    main()
+    # test()
     pass

@@ -161,6 +161,3 @@ def plot_histo_like_follower():
     plt.xlabel("Nombre de folowers")
     plt.ylabel("Nombre de likes générés")
     plt.show()
-
-
-proba_dessin()
