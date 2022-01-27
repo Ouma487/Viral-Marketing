@@ -10,5 +10,8 @@ def graphe_aléatoire_powerlaw(n_nodes):
     edges = {}
     adj_list = graphe_aléatoire.get_adjlist()
     for v in vertex.keys():
-        edges[v] = adj_list[vertex[v]]
+        edges[v] = adj_list[vertex[v]-1]
     return vertex, edges
+
+
+g = graphe_aléatoire_powerlaw(3046)
