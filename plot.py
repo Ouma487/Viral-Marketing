@@ -1,3 +1,4 @@
+from cmath import inf
 import pandas as pd
 import matplotlib.pyplot as plt
 from extract_data import *
@@ -91,16 +92,16 @@ def plot_like_time():
 
 def proba_dessin():
     influenceurs, v = classement_influenceurs_follow(return_value=True)
-    dico = {}
-    for j in range(0, 26):
-        count = 0
-        for i in range(10*j, 10*(j+1)+1):
-            if i in v:
-                count += 1
-        dico[j] = count
-    x = dico.keys()
-    y = [dico[j] for j in x]
-    plt.plot(x, y)
+    pas = 10
+    compteur = [0]*v[0]
+    for i in v:
+        compteur[i-1] += 1
+    groupage = [0]*((v[0]//pas)+1)
+    for i in range(0, (v[0]//pas)):
+        for j in range(i*pas, (i+1)*(pas)):
+            print(i, j)
+            groupage[i] += compteur[j]
+    plt.plot(range(0, v[0], pas), groupage)
     plt.show()
 
 
@@ -160,3 +161,6 @@ def plot_histo_like_follower():
     plt.xlabel("Nombre de folowers")
     plt.ylabel("Nombre de likes générés")
     plt.show()
+
+
+proba_dessin()
