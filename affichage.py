@@ -30,6 +30,19 @@ def most_connected_nodes(vertex, edges, return_value=False):
 
 
 def limiter_graph(vertex, edges, N):
+    """Permet de réduire le graph à afficher en conservant que les noeuds les plus connectées.
+    Et les liaisons entre ses noeuds les plus connectées.
+    Remarque :
+    new_vertex est un dictionnaire ou les clefs sont dans l'ordre des noeuds les plus connectés
+    de vertex.
+    Args:
+        vertex (dic)
+        edges (dic)
+        N (int): nombre de noeuds à conserver
+
+    Returns:
+        new_vertex, new_edges
+    """
     id_infuenceurs = most_connected_nodes(vertex, edges)[:N]
     nw_vertex = {}
     nw_edges = {}
@@ -49,26 +62,33 @@ def afficher_propagation(tps, nb_like, nb_personne_like, nb_personne_repost):
     """Affiche 3 graphs qui décrivent la propagation de l'information dans le graph
 
     Args:
-        tps (list): [description]
-        nb_like (list): [description]
-        nb_personne_like (list): [description]
-        nb_personne_repost (list): [description]
-
-    Returns:
-        [type]: [description]
+        tps (list)
+        nb_like (list)
+        nb_personne_like (list)
+        nb_personne_repost (list)
     """
-    fig, axs = plt.subplots(2, 2)
+    # Dérivée
+    fig, axs = plt.subplots(3, 2)
+    axs[0, 1].plot(tps, var(nb_like), 'tab:orange')
+    axs[0, 1].set_title('Nombre de nouveaux likes à chaque instant')
+
+    axs[1, 1].plot(tps, var(nb_personne_like), 'tab:orange')
+    axs[1, 1].set_title(
+        "Nombre de nouvelles personnes qui 'like' à chaque instant")
+
+    axs[2, 1].plot(tps, var(nb_personne_repost), 'tab:orange')
+    axs[2, 1].set_title(
+        "Nombre de nouvelles personnes qui 'repost' à chaque instant")
+    # Graph normaux
     axs[0, 0].plot(tps, nb_like, 'tab:green')
-    axs[0, 0].plot(tps, var(nb_like), 'tab:orange')
-    axs[0, 0].set_title('Nombre de like en fonction du temps')
+    axs[0, 0].set_title('Nombre de likes en fonction du temps')
 
-    axs[0, 1].plot(tps, nb_personne_like, 'tab:green')
-    axs[0, 1].plot(tps, var(nb_personne_like), 'tab:orange')
-    axs[0, 1].set_title('Nombre de personne qui like')
+    axs[1, 0].plot(tps, nb_personne_like, 'tab:green')
+    axs[1, 0].set_title("Nombre de personnes qui 'like'")
 
-    axs[1, 0].plot(tps, nb_personne_repost, 'tab:green')
-    axs[1, 0].plot(tps, var(nb_personne_repost), 'tab:orange')
-    axs[1, 0].set_title('Nombre de personne qui repost')
+    axs[2, 0].plot(tps, nb_personne_repost, 'tab:green')
+    axs[2, 0].set_title("Nombre de personnes qui 'repost'")
+    fig.tight_layout()
     plt.show()
 
 
@@ -94,5 +114,4 @@ def afficher_graph(vertex, edges, nom='user', color=False):
     else:
         g.vs['label'] = [i for i in range(n)]
 
-    ig.plot(g)
-    plt.show()
+    return ig.plot(g)
