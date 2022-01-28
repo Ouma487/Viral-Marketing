@@ -14,8 +14,13 @@ from generation import *
 
 
 def main():
-    plot_like_views()
-    plt.show()
+
+    vertex, edges = graphe_aléatoire_powerlaw(3046)
+    strategie = random_post(vertex, edges, p=0.01)
+    tps, nb_like, nb_personne_like, nb_personne_repost = propagation(
+        vertex, edges, strategie, time=50)
+    afficher_propagation(tps, nb_like, nb_personne_like,
+                         nb_personne_repost, plot_derivée=False)
 
 
 if __name__ == '__main__':
