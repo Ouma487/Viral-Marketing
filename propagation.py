@@ -22,11 +22,19 @@ def voisin(x, lst):
 
 
 def repost_condition(t, t0):
-    return 0.2369*0.139/(t-t0+1)
+    return rand((0.3838*0.0062307/((t-t0+1)**2) + 0.3838*0.0062307/((t-t0+2)**2))/2)
 
 
 def like_condition(t, t0):
-    return 0.2369*0.0062307/(t-t0+1)
+    return rand((0.3838*0.139/((t-t0+1)**2) + 0.3838*0.139/((t-t0+2)**2))/2)
+
+
+def _repost_condition(t, t0):
+    return rand((0.2369*0.0062307/(t-t0+1) + 0.2369*0.0062307/(t-t0+2))/2)
+
+
+def _like_condition(t, t0):
+    return rand((0.2369*0.139/(t-t0+1) + 0.2369*0.139/(t-t0+2))/2)
 
 
 def repost_condition_old(t, t0):
@@ -38,7 +46,7 @@ def repost_condition_old(t, t0):
     elif t == t0+2:
         return rand(0.5*p)
     else:
-        return rand(p**(t-t0))
+        return 0
 
 
 def like_condition_old(t, t0):
@@ -50,7 +58,7 @@ def like_condition_old(t, t0):
     elif t == t0+2:
         return rand(0.5*p)
     else:
-        return rand(p**(t-t0))
+        return 0
 
 
 def propagation(vertex, edges, strategie, time):

@@ -14,30 +14,14 @@ from generation import *
 
 
 def main():
-<<<<<<< HEAD
-    """vertex, edges = graphe_aléatoire_powerlaw(12, m=25)
-    nv, ne = limiter_graph(vertex, edges, 12)
-    afficher_graph(nv, ne, nom='user', color=True)"""
-    """strategie = random_post(vertex, edges, p=0.01)
+    vertex, edges = graphe_aléatoire_powerlaw(3046)
+    #strategie = random_post(vertex, edges, p=0.1)
+    strategie = best_influenceurs(vertex, edges, nb=300)
     tps, nb_like, nb_personne_like, nb_personne_repost = propagation(
-        vertex, edges, strategie, time=40)
-    afficher_propagation(tps, nb_like, nb_personne_like,
-                         nb_personne_repost)"""
-    print(moyenne())
-=======
-
-    vertex, edges = graph()
-
-    strategie = random_post(vertex, edges, p=0.001)
-    tps, nb_like, nb_personne_like, nb_personne_repost = propagation(
-        vertex, edges, strategie, time=60)
+        vertex, edges, strategie, time=100)
     afficher_propagation(tps, nb_like, nb_personne_like,
                          nb_personne_repost)
->>>>>>> 4999adedda5c7498329cee160499f5e65ad6cfef
 
 
 if __name__ == '__main__':
-    # main()
-    v, e = graphe_aléatoire_powerlaw(12, m=30)
-    v, e = limiter_graph(v, e, 12)
-    afficher_graph(v, e, nom='user', color=True)
+    main()
