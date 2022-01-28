@@ -22,6 +22,14 @@ def voisin(x, lst):
 
 
 def repost_condition(t, t0):
+    return 0.2369*0.139/(t-t0+1)
+
+
+def like_condition(t, t0):
+    return 0.2369*0.0062307/(t-t0+1)
+
+
+def repost_condition_old(t, t0):
     p = 0.005
     if t == t0:
         return rand(p)
@@ -33,7 +41,7 @@ def repost_condition(t, t0):
         return rand(p**(t-t0))
 
 
-def like_condition(t, t0):
+def like_condition_old(t, t0):
     p = 0.02
     if t == t0:
         return rand(p)

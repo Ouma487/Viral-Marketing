@@ -15,17 +15,17 @@ from generation import *
 
 def main():
 
-    vertex, edges = graphe_aléatoire_powerlaw(3046)
+    vertex, edges = graph()
 
-    strategie = best_influenceurs(vertex, edges, nb=5)
+    strategie = random_post(vertex, edges, p=0.001)
     tps, nb_like, nb_personne_like, nb_personne_repost = propagation(
-        vertex, edges, strategie, time=40)
+        vertex, edges, strategie, time=60)
     afficher_propagation(tps, nb_like, nb_personne_like,
                          nb_personne_repost)
 
 
 if __name__ == '__main__':
     # main()
-    vertex, edges = graph()
-    plot_distribution_node_degree(vertex, edges, pas=1)
-    plt.show()
+    v, e = graphe_aléatoire_powerlaw(12, m=30)
+    v, e = limiter_graph(v, e, 12)
+    afficher_graph(v, e, nom='user', color=True)

@@ -92,7 +92,7 @@ def afficher_propagation(tps, nb_like, nb_personne_like, nb_personne_repost):
     plt.show()
 
 
-def afficher_graph(vertex, edges, nom='user', color=False):
+def afficher_graph(vertex, edges, nom='False', color=False):
     """Affiche le graph
 
     Args:
@@ -106,12 +106,12 @@ def afficher_graph(vertex, edges, nom='user', color=False):
     n = len(vertex.keys())
 
     if color:
-        color_dict = ["red", "yellow", "orange", "white"]
+        color_dict = ["red", "orange", "yellow", "white"]
         g.vs["color"] = [k for k in color_dict for _ in range(n//4)]
 
     if nom == 'user':
         g.vs['label'] = get_keys_to_list(vertex)
-    else:
+    elif nom == 'nb':
         g.vs['label'] = [i for i in range(n)]
 
     return ig.plot(g)
