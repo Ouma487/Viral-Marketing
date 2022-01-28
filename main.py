@@ -1,8 +1,3 @@
-import datetime
-from matplotlib.style import use
-from pip import main
-import igraph as ig
-import matplotlib.pyplot as plt
 from extract_data import *
 from utility import *
 from extract_data import *
