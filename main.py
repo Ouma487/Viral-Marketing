@@ -15,7 +15,6 @@ from generation import *
 
 def main():
     vertex, edges = graphe_aléatoire_powerlaw(3046)
-    #
     for i in [0.001, 0.01, 0.1]:
         #strategie = best_influenceurs(vertex, edges, nb=i)
         strategie = random_post(vertex, edges, p=i)
