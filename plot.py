@@ -10,7 +10,7 @@ df_posts = pd.read_csv(path+"instagram_post_9-11_16-11.csv")
 
 
 def plot_like_views():
-    """affiche le graph du nombre de like en fonction du nombre de views
+    """affiche le graph du nombre de likes en fonction du nombre de vues
     """
     vues = []
     likes = []
@@ -20,6 +20,9 @@ def plot_like_views():
         v, l = nb_likes_vue(id_post)
         likes.append(l)
         vues.append(v)
+    plt.xlabel('Nombre de vues')
+    plt.ylabel('Nombre de likes')
+    plt.title("Evolution du nombre de likes en fonction du nombre de vues")
     plt.scatter(vues, likes)
     plt.show()
 
@@ -48,6 +51,9 @@ def plot_like_follower():
         l, n = number_rapport_likes(id_post)
         likes.append(l)
         nb_follo.append(n)
+    plt.xlabel('Nombre de followers')
+    plt.ylabel('Nombre de likes')
+    plt.title("Evolution du nombre de likes en fonction du nombre de followers")
     plt.scatter(nb_follo, likes)
     plt.show()
 
@@ -67,6 +73,9 @@ def plot_like_date():
         time.append(date)
         likes.append(post['likes'])
     # print(time)
+    plt.xlabel('Date du post')
+    plt.ylabel('Nombre de likes')
+    plt.title("Evolution du nombre de like en fonction de la date du post")
     plt.scatter(time, likes)
     plt.show()
 
@@ -86,11 +95,21 @@ def plot_like_time():
         time.append(date)
         likes.append(post['likes'])
     # print(time)
+    plt.xlabel('Heure du post')
+    plt.ylabel('Nombre de likes')
+    plt.title("Evolution du nombre de likes en fonction de l'heure de post")
     plt.scatter(time, likes)
     plt.show()
 
 
-def proba_dessin(vertex, edges, pas=10):
+def plot_distribution_node_degree(vertex, edges, pas=10):
+    """Affiche la distribution des degrées des noeuds dans le graph
+
+    Args:
+        vertex ([type]): [description]
+        edges ([type]): [description]
+        pas (int, optional): [description]. Defaults to 10.
+    """
     influenceurs, v = most_connected_nodes(vertex, edges, return_value=True)
     compteur = [0]*v[0]
     for i in v:
@@ -101,10 +120,15 @@ def proba_dessin(vertex, edges, pas=10):
     for i in range(0, (v[0]//pas)):
         for j in range(i*pas, (i+1)*(pas)):
             groupage[i] += compteur[j]
+    plt.xlabel("Degrée des noeuds")
+    plt.ylabel("Nombre de noeuds correspondant")
+    plt.title("Distribution des degrées des noeuds")
     plt.plot(range(0, v[0], pas), groupage)
 
 
 def plot_histo_follo():
+    """Evolution du nombre de comptes en fonction du nombre de followers
+    """
     nb_follo = []
     for i in range(0, len(df_posts)):
         post = df_posts.index[i]
@@ -114,6 +138,7 @@ def plot_histo_follo():
     plt.hist(nb_follo)
     plt.xlabel("Nombre de followers")
     plt.ylabel("Nombre de compte correspondant")
+    plt.title('Evolution du nombre de comptes en fonction du nombre de followers')
     plt.show()
 
 
@@ -139,24 +164,4 @@ def plot_histo_follow_user():
     plt.hist(likes)
     plt.xlabel("Nombre de likes générés")
     plt.ylabel("Nombre de compte correspondant")
-    plt.show()
-
-
-def plot_histo_like_follower():
-    """plot l'histogram du nombre de like en fonction du nombre de follower
-    """
-    likes = [0 for i in range(0, 29)]
-    influenceurs, valeur = classement_influenceurs_follow(True)
-    while influenceurs != []:
-        id_user = influenceurs.pop()
-        n = number_of_like_generated(id_user)
-        print(n)
-        f = get_nb_followers(id_user)
-        for i in range(0, 29):
-            if 10 * i < f <= 10 * i + 10:
-                likes[i] += n
-    print(likes)
-    plt.hist(likes)
-    plt.xlabel("Nombre de folowers")
-    plt.ylabel("Nombre de likes générés")
     plt.show()
