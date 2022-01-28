@@ -234,3 +234,17 @@ def diff_repost():
             else:
                 dico[j] = 1
     return dico
+
+
+def moyenne():
+    nb_likes = df_posts['likes'].sum()
+    n = 0
+    moyenne_like_post = nb_likes/len(df_posts)
+    for id_post in df_posts['id_post'].values:
+        post = df_posts[df_posts['id_post'] == id_post].index[0]
+        id_user = df_posts.iloc[post]['id_user']
+        user = df_accounts[df_accounts['id_user'] == id_user].index[0]
+        nb_followers = df_accounts.iloc[user]['nb_followers']
+        n += nb_followers
+    moyenne_post = n / len(df_accounts)
+    return moyenne_like_post / moyenne_post
