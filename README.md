@@ -19,7 +19,9 @@ As part of the IE "Viral Marketing", we worked on marketing campaign's strategie
 pip install -r requirements.txt
 ```
 
-Vous pouvez run main_jupyter.ipynb
+## Use
+
+You can run main_jupyter.ipynb
 
 ## Description
 
